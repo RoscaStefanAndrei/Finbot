@@ -57,19 +57,20 @@ def get_news_for_company(company_name, ticker):
 
     # If no last run time is found, default to fetching news from the last hour.
     if not from_date:
-        from_date = (datetime.datetime.now() - datetime.timedelta(hours=1)).strftime('%Y-%m-%dT%H:%M:%S')
+    # Default to a safe window within the 30-day limit
+     from_date = (datetime.datetime.now() - datetime.timedelta(days=7)).strftime('%Y-%m-%dT%H:%M:%S')
 
     to_date = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
 
     params = {
-        "q": f"{company_name} OR {ticker} stock",
-        "from": from_date,
-        "to": to_date,
-        "sortBy": "publishedAt",
-        "language": "en",
-        "apiKey": API_KEY,
-        "domains": "cnbc.com,marketwatch.com,yahoo.com,reuters.com,seekingalpha.com,wsj.com"
-    }
+    "q": f"{company_name} OR {ticker}", # Removed "stock" to broaden the search
+    "from": from_date,
+    "to": to_date,
+    "sortBy": "publishedAt",
+    "language": "en",
+    "apiKey": API_KEY,
+    "domains": "cnbc.com,marketwatch.com,yahoo.com,reuters.com,seekingalpha.com,wsj.com"  # <--- Comment this line out
+}
 
     try:
         response = requests.get("https://newsapi.org/v2/everything", params=params)
