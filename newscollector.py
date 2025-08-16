@@ -58,18 +58,18 @@ def get_news_for_company(company_name, ticker):
     # If no last run time is found, default to fetching news from the last hour.
     if not from_date:
     # Default to a safe window within the 30-day limit
-     from_date = (datetime.datetime.now() - datetime.timedelta(days=7)).strftime('%Y-%m-%dT%H:%M:%S')
+        from_date = (datetime.datetime.now() - datetime.timedelta(days=7)).strftime('%Y-%m-%dT%H:%M:%S')
 
     to_date = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
 
     params = {
-    "q": f"{company_name} OR {ticker}", # Removed "stock" to broaden the search
-    "from": from_date,
-    "to": to_date,
-    "sortBy": "publishedAt",
-    "language": "en",
-    "apiKey": API_KEY,
-    "domains": "cnbc.com,marketwatch.com,yahoo.com,reuters.com,seekingalpha.com,wsj.com"  # <--- Comment this line out
+        "q": f"{company_name} OR {ticker}", # Removed "stock" to broaden the search
+        "from": from_date,
+        "to": to_date,
+        "sortBy": "publishedAt",
+        "language": "en",
+        "apiKey": API_KEY,
+        "domains": "cnbc.com,marketwatch.com,yahoo.com,reuters.com,seekingalpha.com,wsj.com" 
 }
 
     try:
@@ -117,9 +117,12 @@ def get_news_for_company(company_name, ticker):
     except Exception as e:
         print(f"[ERROR] Exception occurred for {company_name}: {e}")
 
-# --- Main Execution ---
+# --- New Orchestrator Function ---
 
-if __name__ == "__main__":
+def run_news_collector():
+    """
+    Orchestrates the news collection for all companies and updates the last run time.
+    """
     print(f"\n[INFO] Starting news collection at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}...")
     
     # Main loop to collect news for all companies
@@ -132,3 +135,9 @@ if __name__ == "__main__":
         f.write(datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S'))
 
     print("\n[INFO] News collection complete. Timestamp updated for next run.")
+
+# --- Main Execution ---
+
+if __name__ == "__main__":
+    # This block now just calls the main function, allowing it to be imported elsewhere.
+    run_news_collector()
