@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import numpy as np
 
 # --- My Project Configuration & Setup ---
 
@@ -48,9 +49,18 @@ def clean_and_process_data(df):
     initial_count = len(df)
     print(f"Initial row count: {initial_count}")
 
+    # I'm adding a step to replace empty descriptions with NaN so they can be dropped.
+    df['description'] = df['description'].replace('', np.nan)
+    df['title'] = df['title'].replace('', np.nan)
+    
     # Step 1: I'm dropping rows that are missing critical information.
     df.dropna(subset=['title', 'description', 'publishedAt'], inplace=True)
     print(f"I dropped {initial_count - len(df)} rows with missing data.")
+    initial_count = len(df)
+
+    # I'm adding a new step to filter out low-quality articles with very short descriptions.
+    df = df[df['description'].str.len() > 50]
+    print(f"I dropped {initial_count - len(df)} articles with descriptions that were too short.")
     initial_count = len(df)
 
     # Step 2: I'm removing duplicates.
@@ -67,8 +77,6 @@ def clean_and_process_data(df):
     print(f"\nFinal row count after cleaning: {len(df)}")
     print("--- Cleaning Complete ---")
     return df
-
-
 # --- My Orchestrator Function ---
 
 def run_data_cleaning():
