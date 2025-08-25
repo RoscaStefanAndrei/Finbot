@@ -19,11 +19,40 @@ if not API_KEY:
 # Sectors to track with relevant search terms
 # This is a much more powerful way to get raw market data.
 sectors = {
-    "Technology": ["artificial intelligence", "AI", "semiconductors", "cloud computing", "fintech"],
-    "Automotive": ["electric vehicles", "EV", "self-driving", "robotaxi"],
-    "Finance": ["banking", "investment", "capital markets", "stock market"],
-    "Healthcare": ["biotech", "pharmaceuticals", "drug discovery", "medical devices"],
-    "Energy": ["oil and gas", "renewable energy", "solar", "wind power", "drilling"]
+    "Technology": [
+        "artificial intelligence", "AI stocks", "semiconductors", 
+        "cloud computing earnings", "fintech investment", "cybersecurity"
+    ],
+    "Automotive": [
+        "electric vehicles", "EV stocks", "self-driving technology", 
+        "automotive supply chain"
+    ],
+    "Finance": [
+        "banking sector", "investment banking", "capital markets", 
+        "financial services regulation", "stock exchange"
+    ],
+   
+    "Macroeconomics": [
+        "interest rates", "economic outlook", "GDP report", 
+        "inflation data", "consumer confidence"
+    ],
+
+    "Healthcare": [
+        "biotech stock", "pharmaceuticals", "drug trial", 
+        "FDA approval", "medical devices", "healthcare innovation"
+    ],
+    "Natural Resources": [
+        "gold price", "silver futures", "crude oil", 
+        "natural gas prices", "commodity prices", "mining stocks"
+    ],
+
+    "Misc":[
+        "merger agreement", "acquisition deal", "hostile takeover", "initial public offering", "IPO",
+        "bankruptcy filing", "leadership change", "product launch", "patent approval",
+        "quarterly earnings", "profit forecast", "revenue growth", "stock price surge", "missed estimates",
+        "unexpected loss", "record sales", "stock dividend", "share buyback", "quarterly results"
+    ]
+
 }
 
 # Folder structure
